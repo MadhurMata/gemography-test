@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import RepositoriesList from './pages/RepositoriesList';
-import './App.css';
+import './App.scss';
 
 function App() {
   return (
