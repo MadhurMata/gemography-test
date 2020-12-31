@@ -4,9 +4,10 @@ import service from '../lib/service';
 
 export default function RepositoriesList() {
   const [isLoading, setIsLoading] = useState(true);
+  const [repositories, setRepositories] = useState([]);
 
   useEffect(() => {
-    service.fetchRepositories();
+    service.fetchRepositories().then((res) => setRepositories(res));
     setIsLoading(false);
     console.log('hello');
   }, []);
@@ -15,7 +16,19 @@ export default function RepositoriesList() {
     <h1>Loading</h1>
   ) : (
     <div>
-      <RepositoryCard />
+      {repositories?.items.map((repository, key) => {
+        return (
+          <RepositoryCard
+            repositoryName={repository.name}
+            repositoryDescription={repository.description}
+            repositoryIssues={repository.open_issues_count}
+            repositoryStars={repository.stargazers_count}
+            repositoryUserName={repository.owner.login}
+            repositoryAvatar={repository.owner.avatar_url}
+            key={key}
+          />
+        );
+      })}
     </div>
   );
 }

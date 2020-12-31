@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { device } from '../styles/device';
+import PropTypes from 'prop-types';
 
 const GridContainer = styled.div`
   max-width: 80vw;
@@ -84,32 +85,33 @@ const Chips = styled.div`
   }
 `;
 
-export default function RepositoryCard() {
+export default function RepositoryCard(props) {
+  const {
+    repositoryName,
+    repositoryDescription,
+    repositoryIssues,
+    repositoryStars,
+    repositoryAvatar
+  } = props;
   return (
     <div>
       <GridContainer>
         <PhotoGridContainer>
-          <Image
-            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Flogo.com%2F&psig=AOvVaw3Pw2cxCVivWm_SaTHVUQ8J&ust=1609492689732000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNiw09Px9-0CFQAAAAAdAAAAABAD"
-            alt="LogIn button"
-          />
+          <Image src={repositoryAvatar} alt="LogIn button" />
         </PhotoGridContainer>
         <RepositoryInfo>
           <TitleGridContainer>
-            <h1>Title</h1>
+            <h1>{repositoryName}</h1>
           </TitleGridContainer>
           <DefinitionGridContainer>
-            <Description>
-              Descriptions jhcbxnajkxn kjwencxmkas kjsncxmqwsakld kjnadxmqkwda kjnadxzhDSJ
-              JNADXKBDCWND
-            </Description>
+            <Description>{repositoryDescription}</Description>
           </DefinitionGridContainer>
           <DetailsGridContainer>
             <Chips>
-              <p>5 STARS</p>
+              <p>{repositoryStars}</p>
             </Chips>
             <Chips>
-              <p>1K Issues</p>
+              <p>{repositoryIssues}</p>
             </Chips>
             <Description>kjsnmxkzl,amxskdcnxmekjsfncxejwdkncmewkdscnml</Description>
           </DetailsGridContainer>
@@ -118,3 +120,11 @@ export default function RepositoryCard() {
     </div>
   );
 }
+
+RepositoryCard.propTypes = {
+  repositoryName: PropTypes.string,
+  repositoryDescription: PropTypes.string,
+  repositoryIssues: PropTypes.number,
+  repositoryStars: PropTypes.number,
+  repositoryAvatar: PropTypes.string
+};
