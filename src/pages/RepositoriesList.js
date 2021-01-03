@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import RepositoryCard from '../components/RepositoryCard';
 import service from '../lib/service';
+import { daysFromCreatedDate } from '../lib/utils';
 
 export default function RepositoriesList() {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,7 +17,7 @@ export default function RepositoriesList() {
     <h1>Loading</h1>
   ) : (
     <div>
-      {repositories?.items.map((repository, key) => {
+      {repositories.items?.map((repository, key) => {
         return (
           <RepositoryCard
             repositoryName={repository.name}
@@ -25,6 +26,7 @@ export default function RepositoriesList() {
             repositoryStars={repository.stargazers_count}
             repositoryUserName={repository.owner.login}
             repositoryAvatar={repository.owner.avatar_url}
+            createdAt={daysFromCreatedDate(repository.created_at)}
             key={key}
           />
         );

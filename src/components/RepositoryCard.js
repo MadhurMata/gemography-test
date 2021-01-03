@@ -1,21 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
-import { device } from '../styles/device';
+import { device } from '../styles/styles';
 import PropTypes from 'prop-types';
+import { numFormatter } from '../lib/utils';
+import Chip from './Chip';
 
 const GridContainer = styled.div`
   max-width: 80vw;
+  margin: 1rem 0;
   display: grid;
-  grid-template-columns: 90px 1fr;
+  grid-template-columns: 0fr 1fr;
   grid-template-rows: 1fr;
   gap: 0px 20px;
   grid-template-areas: 'PhotoGridContainer RepositoryInfo';
+
+  @media ${device.tablet} {
+    max-width: 90vw;
+    gap: 0px 10px;
+  }
 `;
 
 const RepositoryInfo = styled.div`
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 30px 30px 30px;
+  grid-template-rows: 1fr 1fr 1fr;
   gap: 0px 0px;
   grid-template-areas:
     'TitleGridContainer'
@@ -25,6 +33,7 @@ const RepositoryInfo = styled.div`
 `;
 
 const PhotoGridContainer = styled.div`
+  place-self: center;
   grid-area: PhotoGridContainer;
 `;
 
@@ -55,11 +64,16 @@ const Image = styled.img`
   float: left;
   background-repeat: no-repeat;
   background-size: cover;
+
+  @media ${device.mobile} {
+    height: 60px;
+    width: 60px;
+  }
 `;
 
-const Description = styled.p`
-  @media ${device.tablet} {
-    width: 150px;
+const Text = styled.p`
+  @media ${device.mobile} {
+    width: 200px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -70,19 +84,17 @@ const Description = styled.p`
   }
 `;
 
-const Chips = styled.div`
-  padding: 0 1rem;
-  margin-right: 1rem;
-  background-color: green;
-  border-radius: 50px;
-
-  @media ${device.tablet} {
-    padding: 0 0.2rem;
-    margin-right: 0.5rem;
-    p {
-      fontsize: 0.8rem;
-    }
+const Desktop = styled.div`
+  @media ${device.mobile} {
+    display: none;
   }
+`;
+
+const Mobile = styled.div`
+  @media ${device.otherDevices} {
+    display: none;
+  }
+  font-size: 0.8rem;
 `;
 
 export default function RepositoryCard(props) {
@@ -91,7 +103,9 @@ export default function RepositoryCard(props) {
     repositoryDescription,
     repositoryIssues,
     repositoryStars,
-    repositoryAvatar
+    repositoryAvatar,
+    repositoryUserName,
+    createdAt
   } = props;
   return (
     <div>
@@ -104,16 +118,17 @@ export default function RepositoryCard(props) {
             <h1>{repositoryName}</h1>
           </TitleGridContainer>
           <DefinitionGridContainer>
-            <Description>{repositoryDescription}</Description>
+            <Text>{repositoryDescription}</Text>
           </DefinitionGridContainer>
           <DetailsGridContainer>
-            <Chips>
-              <p>{repositoryStars}</p>
-            </Chips>
-            <Chips>
-              <p>{repositoryIssues}</p>
-            </Chips>
-            <Description>kjsnmxkzl,amxskdcnxmekjsfncxejwdkncmewkdscnml</Description>
+            <Chip color={'#862892'} quantity={numFormatter(repositoryStars)} text={'Stars: '} />
+            <Chip color={'#19bb19'} quantity={numFormatter(repositoryIssues)} text={'Issues: '} />
+            <Desktop>
+              Submited {createdAt} days ago by {repositoryUserName}
+            </Desktop>
+            <Mobile>
+              {createdAt} days ago by {repositoryUserName}
+            </Mobile>
           </DetailsGridContainer>
         </RepositoryInfo>
       </GridContainer>
@@ -126,5 +141,7 @@ RepositoryCard.propTypes = {
   repositoryDescription: PropTypes.string,
   repositoryIssues: PropTypes.number,
   repositoryStars: PropTypes.number,
-  repositoryAvatar: PropTypes.string
+  repositoryAvatar: PropTypes.string,
+  repositoryUserName: PropTypes.string,
+  createdAt: PropTypes.number
 };

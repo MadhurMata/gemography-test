@@ -1,15 +1,13 @@
 import axios from 'axios';
+import { getDateFromAMonthAgo } from './utils';
 
 class Service {
   fetchRepositories() {
     return axios
       .get(
-        `https://api.github.com/search/repositories?q=created:>${'2020-10-22'}&sort=stars&order=desc&page=${'1'}`
+        `https://api.github.com/search/repositories?q=created:>${getDateFromAMonthAgo()}&sort=stars&order=desc&page=${'1'}`
       )
-      .then(({ data }) => data)
-      .catch((error) => {
-        console.log("The Repositories couldn't be found", error);
-      });
+      .then(({ data }) => data);
   }
 }
 
