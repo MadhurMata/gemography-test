@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 import SearchBar from './SearchBar';
 
@@ -16,5 +16,5 @@ export default function Navbar() {
     <NavbarStyle>
       <SearchBar />
     </NavbarStyle>
-  )
+  );
 }

@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 const SearchBarInput = styled.input`
   margin-top: 1rem;
@@ -25,5 +26,5 @@ export default function SearchBar() {
 
   return (
     <SearchBarInput type="text" placeholder="Search..." value={search} onChange={handleSubmit} />
-  )
+  );
 }
