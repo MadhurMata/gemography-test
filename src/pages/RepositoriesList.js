@@ -16,7 +16,7 @@ const Main = styled.main`
 export default function RepositoriesList() {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
-  const repositories = useSelector((state) => state.service.repositories);
+  const repositories = useSelector((state) => state.service.search);
 
   useEffect(() => {
     dispatch(fetchRepositories());

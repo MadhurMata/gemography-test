@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { searchRepository } from '../redux/actions/actions';
 
 const SearchBarInput = styled.input`
   margin-top: 1rem;
@@ -19,6 +21,11 @@ const SearchBarInput = styled.input`
 
 export default function SearchBar() {
   const [search, setSearch] = useState('');
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    search ? dispatch(searchRepository(search)) : null;
+  }, [search]);
 
   const handleSubmit = (e) => {
     setSearch(e.target.value);

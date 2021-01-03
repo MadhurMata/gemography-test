@@ -1,4 +1,4 @@
-import { FETCH_REPOSITORIES } from './types';
+import { FETCH_REPOSITORIES, SEARCH } from './types';
 import service from '../../lib/service';
 
 export const fetchRepositories = () => (dispatch) => {
@@ -8,4 +8,11 @@ export const fetchRepositories = () => (dispatch) => {
       payload: data.items
     })
   );
+};
+
+export const searchRepository = (searchValue) => (dispatch) => {
+  dispatch({
+    type: SEARCH,
+    payload: searchValue
+  });
 };
