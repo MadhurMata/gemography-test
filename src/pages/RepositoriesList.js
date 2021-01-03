@@ -12,7 +12,6 @@ export default function RepositoriesList() {
   useEffect(() => {
     dispatch(fetchRepositories());
     setIsLoading(false);
-    console.log('hello');
   }, []);
 
   return isLoading ? (
