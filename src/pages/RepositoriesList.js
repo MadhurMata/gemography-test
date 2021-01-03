@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import RepositoryCard from '../components/RepositoryCard';
-import service from '../lib/service';
 import { daysFromCreatedDate } from '../lib/utils';
+import { fetchRepositories } from '../redux/actions/actions';
 
 export default function RepositoriesList() {
   const [isLoading, setIsLoading] = useState(true);
-  const [repositories, setRepositories] = useState([]);
+  const dispatch = useDispatch();
+  const repositories = useSelector((state) => state.service.repositories);
 
   useEffect(() => {
-    service.fetchRepositories().then((res) => setRepositories(res));
+    dispatch(fetchRepositories());
     setIsLoading(false);
     console.log('hello');
   }, []);
@@ -17,7 +19,7 @@ export default function RepositoriesList() {
     <h1>Loading</h1>
   ) : (
     <div>
-      {repositories.items?.map((repository, key) => {
+      {repositories?.map((repository, key) => {
         return (
           <RepositoryCard
             repositoryName={repository.name}
