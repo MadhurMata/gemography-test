@@ -65,14 +65,14 @@ const Image = styled.img`
   background-repeat: no-repeat;
   background-size: cover;
 
-  @media ${device.mobile} {
+  @media ${device.smallDevices} {
     height: 60px;
     width: 60px;
   }
 `;
 
 const Text = styled.p`
-  @media ${device.mobile} {
+  @media ${device.smallDevices} {
     width: 200px;
     white-space: nowrap;
     overflow: hidden;
@@ -85,7 +85,7 @@ const Text = styled.p`
 `;
 
 const Desktop = styled.div`
-  @media ${device.mobile} {
+  @media ${device.smallDevices} {
     display: none;
   }
 `;

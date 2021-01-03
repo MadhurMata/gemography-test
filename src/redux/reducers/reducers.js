@@ -1,4 +1,4 @@
-import { FETCH_REPOSITORIES, SEARCH } from '../actions/types';
+import { FETCH_REPOSITORIES, SEARCH, ADD_REPOSITORIES } from '../actions/types';
 
 const initialState = {
   repositories: [],
@@ -21,6 +21,16 @@ export default function actionReducer(state = initialState, action) {
         ...state,
         repositories: action.payload,
         search: action.payload
+      };
+    case ADD_REPOSITORIES:
+      return {
+        ...state,
+        repositories: state.repositories?.concat(action.payload),
+        search: state.search?.concat(
+          action.payload.filter((repository) =>
+            repository.name.toLowerCase().includes(state.searchTerm)
+          )
+        )
       };
     default:
       return state;

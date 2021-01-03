@@ -1,9 +1,9 @@
 const size = {
-  mobile: '480px',
-  otherDevices: '481px'
+  smallDevices: '600px',
+  otherDevices: '601px'
 };
 
 export const device = {
-  mobile: `(max-width: ${size.mobile})`,
+  smallDevices: `(max-width: ${size.smallDevices})`,
   otherDevices: `(min-width: ${size.otherDevices})`
 };

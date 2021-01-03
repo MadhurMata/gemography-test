@@ -7,10 +7,7 @@ class Service {
       .get(
         `https://api.github.com/search/repositories?q=created:>${getDateFromAMonthAgo()}&sort=stars&order=desc&page=${page}`
       )
-      .then(({ data }) => data)
-      .catch((error) => {
-        console.log("The repositories couldn't be fetched", error);
-      });
+      .then(({ data }) => data);
   }
 }
 

@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import RepositoryCard from '../components/RepositoryCard';
 import { daysFromCreatedDate } from '../lib/utils';
-import { fetchRepositories } from '../redux/actions/actions';
+import { fetchRepositories, addRepositories } from '../redux/actions/actions';
 
 const Main = styled.main`
   display: flex;
@@ -15,13 +15,36 @@ const Main = styled.main`
 
 export default function RepositoriesList() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isBottom, setIsBottom] = useState(false);
+  const [page, setPage] = useState(2);
   const dispatch = useDispatch();
   const repositories = useSelector((state) => state.service.search);
 
   useEffect(() => {
     dispatch(fetchRepositories());
     setIsLoading(false);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (isBottom) {
+      setPage((page) => page + 1);
+      setIsBottom(false);
+      dispatch(addRepositories(page));
+    }
+  }, [isBottom]);
+
+  function handleScroll() {
+    const scrollTop =
+      (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+    const scrollHeight =
+      (document.documentElement && document.documentElement.scrollHeight) ||
+      document.body.scrollHeight;
+    if (scrollTop + window.innerHeight + 50 >= scrollHeight) {
+      setIsBottom(true);
+    }
+  }
 
   return isLoading ? (
     <h1>Loading</h1>

@@ -7,8 +7,10 @@ const ChipStyle = styled.div`
   padding: 0 1rem;
   margin-right: 1rem;
   border: 2px solid ${(props) => props.color};
+  display: flex;
+  align-items: center;
 
-  @media ${device.mobile} {
+  @media ${device.smallDevices} {
     padding: 2px;
     margin-right: 3px;
     min-width: fit-content;
